@@ -5,9 +5,9 @@ This is a tool makes unified photo using 4 photos
 
 > A robust, Python-based image stitching tool that manually estimates homography and seamlessly blends multiple images into a 32:9 cinematic cylindrical panorama.
 
-본 프로젝트는 OpenCV의 고수준 정합 API(`cv2.Stitcher`)에 의존하지 않고, 컴퓨터 비전의 기하학적 원리(Homography, SVD, Backward Mapping)를 이용하여 4장의 이미지를 하나의 파노라마 이미지로 만드는 프로그램입니다.
+본 프로젝트는 OpenCV의 기하학적 원리(Homography, SVD, Backward Mapping)를 이용하여 4장의 이미지를 하나의 파노라마 이미지로 만드는 프로그램입니다.
 
-단순한 평면 투영(Planar Projection)을 넘어, **원통형 투영(Cylindrical Projection)**과 **거리 변환(Distance Transform) 기반 페더링**, 그리고 **정밀 크롭(Shaving)** 기능을 추가로 적용하여 상용 파노라마 소프트웨어 수준의 매끄러운 결과물을 생성합니다.
+단순한 평면 투영을 넘어, **Cylindrical Projection**과 **Distance Transform 기반 페더링**, 그리고 **크롭** 기능을 추가로 적용하여 상용 파노라마 소프트웨어 수준의 매끄러운 결과물을 생성합니다.
 
 ---
 
@@ -43,15 +43,11 @@ This is a tool makes unified photo using 4 photos
 <br>
 
 ### Original Cylindrical Panorama
-> **[추가 기능]** 시야각 왜곡 방지를 위한 **원통형 투영(Cylindrical Projection)** 및 경계선을 지우는 **거리 기반 페더링(Distance Transform)**이 적용되어 스티칭된 결과물입니다. (검은 여백 포함)
-
 <img src="https://github.com/user-attachments/assets/1e0a2c0e-8223-4156-af40-12500e7506fd" alt="Original Cylindrical Panorama" width="100%">
 
 <br>
 
 ### Cropped Cinematic Panorama
-> **[추가 기능]** 정밀 쉐이빙(Shaving) 알고리즘을 통해 불규칙한 검은 여백을 1픽셀도 남기지 않고 깎아내어 완성한 **32:9 비율의 최종 결과물**입니다.
-
 <img src="https://github.com/user-attachments/assets/f519c531-7e44-4722-8546-323d095f32b2" alt="Cropped Cinematic Panorama" width="100%">
 
 ---
