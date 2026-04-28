@@ -26,11 +26,15 @@ This is a tool makes unified photo using 4 photos
 ---
 
 ## 🎬 결과 데모 (Demo)
-
-**(💡 팁: 이곳에 깃허브 이슈나 리드미에 `Panorama_Result_Original.jpg`와 `Panorama_Result_Cropped.jpg` 이미지를 드래그해서 넣어주세요!)**
+<img width="2080" height="1170" alt="Image" src="https://github.com/user-attachments/assets/950ca7bc-de10-49f1-9116-1569c3ebba89" />
+<img width="2080" height="1170" alt="Image" src="https://github.com/user-attachments/assets/50ed4f66-5c18-4ac3-bf08-2cf33f39fcda" />
+<img width="2080" height="1170" alt="Image" src="https://github.com/user-attachments/assets/3bfcc671-4cbc-4df3-a3b6-5bd9070e4b04" />
+<img width="2080" height="1170" alt="Image" src="https://github.com/user-attachments/assets/304361ab-03fe-495e-96c9-3238fdf056b2" />
 
 * **[위] Original Cylindrical Panorama:** 스티칭 직후의 원본 (검은 여백 포함)
+<img width="3687" height="847" alt="Image" src="https://github.com/user-attachments/assets/f519c531-7e44-4722-8546-323d095f32b2" />
 * **[아래] Cropped Cinematic Panorama:** 정밀 쉐이빙 알고리즘이 적용된 32:9 최종 완성본
+ <img width="4118" height="1353" alt="Image" src="https://github.com/user-attachments/assets/1e0a2c0e-8223-4156-af40-12500e7506fd" />
 
 ---
 
