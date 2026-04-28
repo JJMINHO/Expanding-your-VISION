@@ -15,7 +15,7 @@ Cinematic Panorama Stitcher: A professional tool to create a single unified 32:9
 
 * **Manual Homography Estimation (SVD):**
 
-  SIFT 알고리즘으로 추출한 특징점들을 바탕으로 $Ax=0$ 형태의 선형 방정식을 세우고, SVD(`np.linalg.svd`)를 활용해 변환 행렬 $H$를 직접 계산합니다.
+  SIFT 알고리즘으로 추출한 특징점들을 바탕으로 $Ax=0$ 형태의 선형 방정식을 세우고, SVD를 활용해 변환 행렬 $H$를 직접 계산합니다.
 
 * **Backward Mapping Warping:**
 
@@ -27,17 +27,17 @@ Cinematic Panorama Stitcher: A professional tool to create a single unified 32:9
 
 ### 추가 기능
 
-* **Cylindrical Projection **
+* **Cylindrical Projection**
 
-  시야각이 넓어질수록 파노라마 양끝이 부채꼴처럼 비정상적으로 늘어나는 투시 왜곡(Perspective Distortion)을 방지하기 위해, 스티칭 전 이미지를 원통형 좌표계로 구부려주는 전처리 로직을 추가했습니다.
+  시야각이 넓어질수록 파노라마 양끝이 부채꼴처럼 비정상적으로 늘어나는 왜곡을 방지하기 위해, 스티칭 전 이미지를 원통형 좌표계로 구부려주는 전처리 로직을 추가했습니다.
 
-* **Distance Transform Feathering **
+* **Distance Transform Feathering**
 
-  사진 간 노출 차이로 인해 생기는 칼로 자른 듯한 경계선(Seam)을 없애기 위해, `cv2.distanceTransform`을 이용해 중심부에서 가장자리로 갈수록 0에 수렴하는 정교한 가중치 마스크를 생성하여 이미지를 자연스럽게 녹여냈습니다.
+  사진 간 노출 차이로 인해 생기는 칼로 자른 듯한 경계선을 없애기 위해, `cv2.distanceTransform`을 이용해 중심부에서 가장자리로 갈수록 0에 수렴하는 가중치 마스크를 생성하여 이미지를 자연스럽게 변환하였습니다.
 
-* **Cinematic Crop **
+* **Cinematic Crop**
 
-  파노라마 생성 후 생기는 상하좌우의 불규칙한 검은색 여백을 1픽셀도 남기지 않고 깎아내어(Shaving algorithm), 32:9 울트라와이드 비율의 깔끔한 직사각형 뷰를 자동으로 추출합니다.
+  파노라마 생성 후 생기는 상하좌우의 불규칙한 검은색 여백을 남기지 않고 크롭하여, 32:9 울트라와이드 비율의 깔끔한 직사각형 뷰를 추출합니다.
 
 ---
 
