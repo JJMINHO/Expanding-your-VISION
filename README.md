@@ -9,35 +9,19 @@ Cinematic Panorama Stitcher: A professional tool to create a single unified 32:9
 
 ---
 
-## 핵심 구현 사항
+# 주요 기능
 
-### 수학적 원리 구현
+### 시네마틱 파노라마 생성
+**4-Image Seamless Stitching:** 직접 촬영한 4장의 소스 이미지를 분석하여 하나의 초광각 파노라마로 정합합니다. 기준점(Reference)을 중심으로 좌우 이미지를 연쇄적으로 정렬하는 **Matrix Chaining** 기술을 통해 오차 없는 파노라마 뷰를 제공합니다.
 
-* **Manual Homography Estimation (SVD):**
+### 왜곡 없는 광각 뷰 
+**Perspective Distortion Correction:** 일반적인 Planar Projection에서 발생하는 양 끝단이 늘어나는 현상을 방지합니다. 스티칭 전 모든 이미지를 **원통형 좌표계**로 변환하여, 시야각이 넓어져도 실제 눈으로 보는 것과 유사한 반듯한 비율을 유지합니다.
 
-  SIFT 알고리즘으로 추출한 특징점들을 바탕으로 $Ax=0$ 형태의 선형 방정식을 세우고, SVD를 활용해 변환 행렬 $H$를 직접 계산합니다.
+### 경계선 없는 자연스러운 블렌딩
+**Distance Transform Feathering:** 사진과 사진이 만나는 지점의 노출 차이와 경계선을 제거합니다. **거리 변환** 알고리즘을 활용해 이미지 중심부에서 테두리로 갈수록 투명해지는 가중치 마스크를 생성하여, 여러 장의 사진이 마치 한 장처럼 자연스럽게 변환합니다.
 
-* **Backward Mapping Warping:**
-
-  파이썬 환경의 연산 병목을 해결하기 위해 중첩 `for`문 대신 `np.indices`를 활용하여 픽셀을 역방향으로 복사(Backward Mapping)하는 워핑을 벡터화(Vectorization)하여 직접 구현했습니다.
-
-* **Matrix Chaining (4-Image Stitching):**
-
-  2번째 이미지를 중앙(Reference)으로 설정하고, 3->2 변환 행렬과 2->1 변환 행렬을 곱하는 연쇄 법칙($H_{3\to1} = H_{2\to1} H_{3\to2}$)을 통해 4장의 사진을 완벽하게 이어붙였습니다.
-
-### 추가 기능
-
-* **Cylindrical Projection**
-
-  시야각이 넓어질수록 파노라마 양끝이 부채꼴처럼 비정상적으로 늘어나는 왜곡을 방지하기 위해, 스티칭 전 이미지를 원통형 좌표계로 구부려주는 전처리 로직을 추가했습니다.
-
-* **Distance Transform Feathering**
-
-  사진 간 노출 차이로 인해 생기는 칼로 자른 듯한 경계선을 없애기 위해, `cv2.distanceTransform`을 이용해 중심부에서 가장자리로 갈수록 0에 수렴하는 가중치 마스크를 생성하여 이미지를 자연스럽게 변환하였습니다.
-
-* **Cinematic Crop**
-
-  파노라마 생성 후 생기는 상하좌우의 불규칙한 검은색 여백을 남기지 않고 크롭하여, 32:9 울트라와이드 비율의 깔끔한 직사각형 뷰를 추출합니다.
+### 자동 크롭
+**Cinematic Precision Crop:** 스티칭 후 발생하는 불규칙한 검은색 여백을 자동으로 제거합니다. 사방에서 픽셀을 정밀하게 분석한 후, 여백을 제거하여 별도의 편집 없이도 32:9 울트라와이드 비율의 깔끔한 직사각형 최종 결과물을 출력합니다.
 
 ---
 
