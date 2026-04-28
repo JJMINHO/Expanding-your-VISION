@@ -1,7 +1,7 @@
 # Expanding-your-VISION
 This is a tool makes unified photo using 4 photos
 
-# 📸 Cinematic Panorama Stitcher
+# Cinematic Panorama Stitcher
 
 > A robust, Python-based image stitching tool that manually estimates homography and seamlessly blends multiple images into a 32:9 cinematic cylindrical panorama.
 
@@ -11,35 +11,52 @@ This is a tool makes unified photo using 4 photos
 
 ---
 
-## 🌟 핵심 구현 사항 (Core Features)
+## 핵심 구현 사항
 
-### 1. 수학적 원리 직접 구현
+### 수학적 원리 구현
 * **Manual Homography Estimation (SVD):** SIFT 알고리즘으로 추출한 특징점들을 바탕으로 $Ax=0$ 형태의 선형 방정식을 세우고, SVD(`np.linalg.svd`)를 활용해 변환 행렬 $H$를 직접 계산합니다.
 * **Backward Mapping Warping:** 파이썬 환경의 연산 병목을 해결하기 위해 중첩 `for`문 대신 `np.indices`를 활용하여 픽셀을 역방향으로 복사(Backward Mapping)하는 워핑을 벡터화(Vectorization)하여 직접 구현했습니다.
 * **Matrix Chaining (4-Image Stitching):** 2번째 이미지를 중앙(Reference)으로 설정하고, 3->2 변환 행렬과 2->1 변환 행렬을 곱하는 연쇄 법칙($H_{3\to1} = H_{2\to1} H_{3\to2}$)을 통해 4장의 사진을 완벽하게 이어붙였습니다.
 
-### 2. 추가 기능 
+### 추가 기능 
 * **Cylindrical Projection (원통형 투영):** 시야각이 넓어질수록 파노라마 양끝이 부채꼴처럼 비정상적으로 늘어나는 투시 왜곡(Perspective Distortion)을 방지하기 위해, 스티칭 전 이미지를 원통형 좌표계로 구부려주는 전처리 로직을 추가했습니다.
 * **Distance Transform Feathering (거리 기반 알파 블렌딩):** 사진 간 노출 차이로 인해 생기는 칼로 자른 듯한 경계선(Seam)을 없애기 위해, `cv2.distanceTransform`을 이용해 중심부에서 가장자리로 갈수록 0에 수렴하는 정교한 가중치 마스크를 생성하여 이미지를 자연스럽게 녹여냈습니다.
 * **Cinematic Precision Crop (정밀 크롭 알고리즘):** 파노라마 생성 후 생기는 상하좌우의 불규칙한 검은색 여백을 1픽셀도 남기지 않고 깎아내어(Shaving algorithm), 32:9 비율의 깔끔한 직사각형 뷰를 자동으로 추출합니다.
 
 ---
 
-## 🎬 결과 데모 (Demo)
-* 원본 소스 이미지
-<img width="2080" height="1170" alt="Image" src="https://github.com/user-attachments/assets/950ca7bc-de10-49f1-9116-1569c3ebba89" />
-<img width="2080" height="1170" alt="Image" src="https://github.com/user-attachments/assets/50ed4f66-5c18-4ac3-bf08-2cf33f39fcda" />
-<img width="2080" height="1170" alt="Image" src="https://github.com/user-attachments/assets/3bfcc671-4cbc-4df3-a3b6-5bd9070e4b04" />
-<img width="2080" height="1170" alt="Image" src="https://github.com/user-attachments/assets/304361ab-03fe-495e-96c9-3238fdf056b2" />
+## 결과 데모 
 
-*Original Cylindrical Panorama:** 스티칭 직후의 원본 (검은 여백 포함)
- <img width="4118" height="1353" alt="Image" src="https://github.com/user-attachments/assets/1e0a2c0e-8223-4156-af40-12500e7506fd" />
+### 원본 소스 이미지
 
-* Cropped Cinematic Panorama:** 정밀 쉐이빙 알고리즘이 적용된 32:9 최종 완성본
-<img width="3687" height="847" alt="Image" src="https://github.com/user-attachments/assets/f519c531-7e44-4722-8546-323d095f32b2" />
+<table>
+  <tr>
+    <td><img src="https://github.com/user-attachments/assets/950ca7bc-de10-49f1-9116-1569c3ebba89" alt="Image 1"></td>
+    <td><img src="https://github.com/user-attachments/assets/50ed4f66-5c18-4ac3-bf08-2cf33f39fcda" alt="Image 2"></td>
+  </tr>
+  <tr>
+    <td><img src="https://github.com/user-attachments/assets/3bfcc671-4cbc-4df3-a3b6-5bd9070e4b04" alt="Image 3"></td>
+    <td><img src="https://github.com/user-attachments/assets/304361ab-03fe-495e-96c9-3238fdf056b2" alt="Image 4"></td>
+  </tr>
+</table>
+
+<br>
+
+### Original Cylindrical Panorama
+> **[추가 기능]** 시야각 왜곡 방지를 위한 **원통형 투영(Cylindrical Projection)** 및 경계선을 지우는 **거리 기반 페더링(Distance Transform)**이 적용되어 스티칭된 결과물입니다. (검은 여백 포함)
+
+<img src="https://github.com/user-attachments/assets/1e0a2c0e-8223-4156-af40-12500e7506fd" alt="Original Cylindrical Panorama" width="100%">
+
+<br>
+
+### Cropped Cinematic Panorama
+> **[추가 기능]** 정밀 쉐이빙(Shaving) 알고리즘을 통해 불규칙한 검은 여백을 1픽셀도 남기지 않고 깎아내어 완성한 **32:9 비율의 최종 결과물**입니다.
+
+<img src="https://github.com/user-attachments/assets/f519c531-7e44-4722-8546-323d095f32b2" alt="Cropped Cinematic Panorama" width="100%">
+
 ---
 
-## 🚀 실행 방법 (How to Run)
+## 실행 방법 
 
 ### Requirements
 * Python 3.x
