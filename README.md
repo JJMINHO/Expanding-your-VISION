@@ -1,7 +1,7 @@
 # Expanding-your-VISION
 Cinematic Panorama Stitcher: A professional tool to create a single unified 32:9 photo from 4 input images.
 
-# Cinematic Panorama Stitcher
+# Cinematic Panorama Stitcher 
 
 본 프로젝트는 OpenCV의 기하학적 원리(Homography, SVD, Backward Mapping)를 이용하여 4장의 이미지를 하나의 파노라마 이미지로 만드는 프로그램입니다.
 
